@@ -156,3 +156,49 @@ def handle_scoring():
     if score1 >= WIN_SCORE or score2 >= WIN_SCORE:
         winner = 1 if score1 >= WIN_SCORE else 2
         paused = True  # stop play
+
+#main loop
+game = True
+while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
+        if e.type == KEYDOWN:
+            if e.key == K_ESCAPE:
+                game = False
+            if e.key == K_p:
+                paused = not paused
+            if e.key == K_r:
+                score1 = score2 = 0
+                winner = None
+                racket1.rect.centery = win_height // 2
+                racket2.rect.centery = win_height // 2
+                ball.center_serve(direction=1)
+
+    if paused:
+        draw_court()
+        draw_ui()
+        pause_text = hint_font.render("Paused (P to resume)  •  R to reset", True, LINES)
+        window.blit(pause_text, (win_width//2 - pause_text.get_width()//2, win_height//2 - 14))
+        display.update()
+        clock.tick(FPS)
+        continue
+
+    # updates
+    racket1.update_l()
+    racket2.update_r()
+    ball.update()
+    handle_paddle_collisions()
+    handle_scoring()
+
+    # draw
+    draw_court()
+    draw_ui()
+    racket1.reset()
+    racket2.reset()
+    ball.reset()
+
+    display.update()
+    clock.tick(FPS)
+
+quit()
