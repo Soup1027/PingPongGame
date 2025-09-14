@@ -20,3 +20,11 @@ There are some other features for example, Pausing and Resetting.
 If you press P, it will pause the game but not reset the entire thing.
 
 If you press R, it will reset the entire game including the ball's location and scores.
+
+## Author
+
+Author - Tan Yi Yan
+
+## License
+
+License - Apache 2.0
